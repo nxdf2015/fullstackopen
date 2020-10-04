@@ -46,16 +46,16 @@ const App = () => {
           <tr>
             <td>good</td>
             <td>{good}</td>
-         </tr>
-         <tr>
+            </tr>
+          <tr>
             <td>neutral</td>
             <td>{neutral}</td>
           </tr>
           <tr>
             <td>bad</td>
             <td>{bad}</td>
-          </tr>{good === 0 && neutral === 0 && bad === 0 ?<tr><td>No feedback given</td></tr>:<Statistics {...{ good,bad,neutral}}/>
-      } </tbody>
+          </tr>{good === 0 && neutral === 0 && bad === 0 ?<tr><td>No feedback given</td></tr>:<Statistics {...{good,bad,neutral}}/>
+      }</tbody>
       </table>
     </div>
   )

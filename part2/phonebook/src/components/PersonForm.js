@@ -22,8 +22,7 @@ const PersonForm = ({ addNewPerson }) => {
         name: <input name="name" value={person.name} onChange={handlerChange} />
       </div>
       <div>
-        number:{" "}
-        <input name="number" value={person.number} onChange={handlerChange} />
+        number: <input name="number" value={person.number} onChange={handlerChange} />
       </div>
       <div>
         <button type="submit">add</button>

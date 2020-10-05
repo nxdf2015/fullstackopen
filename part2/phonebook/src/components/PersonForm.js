@@ -1,32 +1,35 @@
-import React ,{useState} from 'react'
+import React from "react";
 
-import {usePerson} from "./hooks"
+import { usePerson } from "../hooks";
 
+const PersonForm = ({ addNewPerson }) => {
+  const [person, setPerson, reset] = usePerson({ name: "", number: "" });
+  const handlerChange = (event) => {
+    const { name, value } = event.target;
+    const updateValue = name === "name" ? setPerson.name : setPerson.number;
+    updateValue(value);
+  };
+  return (
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        console.log(person);
+        addNewPerson(person);
+        reset();
+      }}
+    >
+      <div>
+        name: <input name="name" value={person.name} onChange={handlerChange} />
+      </div>
+      <div>
+        number:{" "}
+        <input name="number" value={person.number} onChange={handlerChange} />
+      </div>
+      <div>
+        <button type="submit">add</button>
+      </div>
+    </form>
+  );
+};
 
-
-
-
-const PersonForm = ({addNewPerson}) =>{
-    const [person , setPerson,reset ] = usePerson({name:"",number:""})
-    const handlerChange = event => {
-        const {name,value} = event.target  
-        const updateValue = name === "name"? setPerson.name : setPerson.number
-        updateValue(value)
-    }
-    return (<form onSubmit={event  =>{
-        event.preventDefault()
-        addNewPerson(person)
-        reset()
-        }}>
-          <div>
-            name: <input   name="name" value={person.name} onChange={handlerChange} />
-          </div>
-          <div>
-            number: <input  name="number" value={person.number} onChange={handlerChange}/>
-          </div>
-          <div>
-            <button type="submit">add</button>
-          </div>
-        </form>)}
-
-export default PersonForm
+export default PersonForm;

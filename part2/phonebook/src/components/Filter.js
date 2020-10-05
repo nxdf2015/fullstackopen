@@ -1,10 +1,17 @@
-import React, {useState} from "react"
+import React from "react";
 
-const FilterName = () => {
-    
-    return( <label>
-    filter shown with:
-    {/* <input type="text" value={filterName} onChange={handlerFilter}placeholder="filter"/> */}
-  </label>)}
+const FilterName = ({ filter, handlerFilter }) => {
+  return (
+    <label>
+      filter shown with:
+      <input
+        type="text"
+        value={filter}
+        onChange={handlerFilter}
+        placeholder="filter"
+      />
+    </label>
+  );
+};
 
-export default FilterName
+export default FilterName;

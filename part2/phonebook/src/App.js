@@ -13,6 +13,7 @@ const App = () => {
   useEffect(()=>{
     axios.get("http://localhost:3001/persons")
     .then(({data})=> setPersons(data))
+    
   },[] )
 
   const handlerNewPerson = (person) => {

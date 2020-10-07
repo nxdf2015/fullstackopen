@@ -41,7 +41,7 @@ const App = () => {
     }
   };
 
-  const handleFilter = (event) => {
+  const handlerFilter = (event) => {
     const filterName = event.target.value;
     setFilter(filterName);
   };
@@ -59,7 +59,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter filter={filter} handlerFilter={handleFilter} />
+      <Filter filter={filter} handlerFilter={handlerFilter} />
       <h3>add a new</h3>
       <PersonForm addNewPerson={handlerNewPerson} />
       <h3>Numbers</h3>

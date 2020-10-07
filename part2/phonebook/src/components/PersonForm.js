@@ -13,7 +13,6 @@ const PersonForm = ({ addNewPerson }) => {
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        console.log(person);
         addNewPerson(person);
         reset();
       }}

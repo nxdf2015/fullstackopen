@@ -16,3 +16,12 @@ code {
 ul {
   list-style: none;
 }
+
+.button-remove {
+  margin: 5px;
+  border-radius: 5px;
+}
+.button-remove:hover {
+  background:blue;
+  
+}

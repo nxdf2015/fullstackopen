@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios"
+
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 
- 
+import { getAll, create, remove, update } from "./services/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
 
   const [filter, setFilter] = useState("");
-  useEffect(()=>{
-    axios.get("http://localhost:3001/persons")
-    .then(({data})=> setPersons(data))
-    
-  },[] )
+  useEffect(() => {
+    getAll().then((data) => setPersons(data));
+  }, []);
 
   const handlerNewPerson = (person) => {
     if (
@@ -22,15 +20,40 @@ const App = () => {
         .map((person) => person.name.toLowerCase())
         .includes(person.name.toLowerCase())
     ) {
-      alert(`${person.name} is already added to phonebook`);
+      if (
+        window.confirm(
+          `${person.name} is already added to phonebook, replace the old number by the new one ?`
+        )
+      ) {
+        const id   = persons.find(p => p.name === person.name).id
+        console.log(person)
+        update( id, person).then((data) =>{
+          
+          setPersons(persons.map((p) => (p.id === data.id ? data : p)))}
+        );
+      }
     } else {
-      setPersons(persons.concat(person));
+      person = { ...person, id: persons.length + 1 };
+
+      create(person)
+        .then((data) => setPersons(persons.concat(data)))
+        .catch((error) => console.log(error));
     }
   };
 
   const handleFilter = (event) => {
     const filterName = event.target.value;
     setFilter(filterName);
+  };
+
+  const handlerRemove = (id) => {
+    const person = persons.find((p) => p.id === id);
+
+    if (window.confirm(`delete ${person.name} ?`)) {
+      remove(id).then(() =>
+        setPersons(persons.filter((person) => person.id !== id))
+      );
+    }
   };
 
   return (
@@ -40,9 +63,9 @@ const App = () => {
       <h3>add a new</h3>
       <PersonForm addNewPerson={handlerNewPerson} />
       <h3>Numbers</h3>
-      <Persons persons={persons} filter={filter} />
+      <Persons persons={persons} filter={filter} remove={handlerRemove} />
     </div>
   );
 };
 
-export default App
+export default App;

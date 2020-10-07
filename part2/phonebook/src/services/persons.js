@@ -18,7 +18,7 @@ const remove = (id) =>
   axios
     .delete(`${base_url}/${id}`)
     .then((response) => response.data)
-    .catch((error) => console.log(error));
+    
 
 const update = (id, person) =>
   axios

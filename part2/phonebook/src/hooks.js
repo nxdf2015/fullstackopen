@@ -14,4 +14,13 @@ const usePerson = (init) => {
   return [person, setPerson, reset];
 };
 
-export { usePerson };
+
+const useNotification = () => {
+  const  [notification,setNotification] = useState({message:"",type:""})
+  const resetNotification = () => setNotification({message:"",type:""})
+  const errorNotification = message  => setNotification({message, type:"error"})
+  const successNotification = message => setNotification({message ,type:"success"})
+  return {notification, resetNotification ,errorNotification,successNotification}
+}
+
+export { usePerson ,useNotification};

@@ -25,3 +25,22 @@ ul {
   background:blue;
   
 }
+
+.notification {
+  /*local varial */ 
+  --color  : none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color : var(--color);
+  background:lightgray;
+  border : 3px solid var(--color);
+  
+}
+
+.notification-success {
+  --color : green;
+}
+
+.notification-error {
+  --color : red;
+}

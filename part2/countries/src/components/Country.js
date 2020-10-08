@@ -13,7 +13,7 @@ const urlWeather = (nameCountry) => {
   const [weatherIcons,setWeatherIcons] = useState("")
   
     useEffect( () => {
-        console.log("----------------------",process.env.REACT_APP_DEBUG)
+       
       if (visibilityCountry && !process.env.REACT_APP_DEBUG){
         
          

@@ -14,7 +14,7 @@ import { getAll, create, remove, update } from "./services/persons";
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [filter, setFilter] = useState("");
-  const {notification, errorNotification,successNotification,resetNotification } = useNotification();
+  const {notification, errorNotification,successNotification} = useNotification();
 
   useEffect(() => {
     getAll().then((data) => setPersons(data));
@@ -33,6 +33,7 @@ const App = () => {
       ) {
         const id = persons.find((p) => p.name === person.name).id;
         update(id, person).then((data) => {
+          successNotification(`update number of ${person.name}`)
           setPersons(persons.map((p) => (p.id === data.id ? data : p)));
         });
       }
@@ -42,7 +43,6 @@ const App = () => {
       create(person)
         .then((data) => {
          successNotification(`append ${data.name} to phone book`)
-          setTimeout(() => resetNotification(), 3000);
           setPersons(persons.concat(data));
         })
         .catch((error) => console.log(error));
@@ -58,13 +58,14 @@ const App = () => {
     const person = persons.find((p) => p.id === id);
 
     if (window.confirm(`delete ${person.name} ?`)) {
-      remove(id).then(() =>
-        setPersons(persons.filter((person) => person.id !== id))
+      remove(id).then(() =>{
+        successNotification(`remove ${person.name} from phonebook`)
+        setPersons(persons.filter((person) => person.id !== id))}
         
       )
       .catch(() => {
         errorNotification(`information of ${person.name} has already been removed from server `)
-        setTimeout(()=> resetNotification(),3000)
+       // setTimeout(()=> resetNotification(),3000)
         setPersons(persons.filter(p=> p.id !== id))
       })
     }

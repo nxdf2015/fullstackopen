@@ -14,12 +14,19 @@ const usePerson = (init) => {
   return [person, setPerson, reset];
 };
 
-
 const useNotification = () => {
+  
+  const waitReset = notification => {
+    return  (message)=> {
+      notification(message)
+      setTimeout(() => resetNotification() , 2000)
+    }
+  }
+  
   const  [notification,setNotification] = useState({message:"",type:""})
-  const resetNotification = () => setNotification({message:"",type:""})
-  const errorNotification = message  => setNotification({message, type:"error"})
-  const successNotification = message => setNotification({message ,type:"success"})
+  const resetNotification = waitReset( () =>  setNotification({message:"",type:""}))
+  const errorNotification = waitReset(message  => setNotification({message, type:"error"}))
+  const successNotification = waitReset(message => setNotification({message ,type:"success"}))
   return {notification, resetNotification ,errorNotification,successNotification}
 }
 

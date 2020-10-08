@@ -35,7 +35,8 @@ const App = () => {
         update(id, person).then((data) => {
           successNotification(`update number of ${person.name}`)
           setPersons(persons.map((p) => (p.id === data.id ? data : p)));
-        });
+        })
+        .catch(error => errorNotification(`can't update ${person.name}`))
       }
     } else {
       person = { ...person, id: persons.length + 1 };
@@ -45,7 +46,7 @@ const App = () => {
          successNotification(`append ${data.name} to phone book`)
           setPersons(persons.concat(data));
         })
-        .catch((error) => console.log(error));
+        .catch((error) => errorNotification("error creation"));
     }
   };
 
@@ -65,7 +66,6 @@ const App = () => {
       )
       .catch(() => {
         errorNotification(`information of ${person.name} has already been removed from server `)
-       // setTimeout(()=> resetNotification(),3000)
         setPersons(persons.filter(p=> p.id !== id))
       })
     }

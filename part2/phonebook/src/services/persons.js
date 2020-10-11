@@ -1,6 +1,9 @@
 import axios from "axios";
-
-const base_url = "http://localhost:3001/api/persons";
+/**
+ * change localhost:3001/api/persons to a relative url
+ * use a proxy for  developement mode 
+ */
+const base_url = "/api/persons";
 
 const getAll = () =>
   axios

@@ -4,7 +4,7 @@ const usePerson = (init) => {
 
   const [newNumber, setNewNumber] = useState(init.number);
 
-  const person = { name: newName, number: newNumber };
+  const person = { name: newName, number: newNumber , isValid(){return /\w{4,}/.test(this.name) && /\d+/.test(this.number)}}
   const setPerson = { name: setNewName, number: setNewNumber };
   const reset = () => {
     setNewName("");

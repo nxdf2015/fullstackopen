@@ -24,7 +24,7 @@ const PersonForm = ({ addNewPerson }) => {
         number: <input name="number" value={person.number} onChange={handlerChange} />
       </div>
       <div>
-        <button type="submit">add</button>
+        <button type="submit" disabled={ !person.isValid()}>add</button>
       </div>
     </form>
   );

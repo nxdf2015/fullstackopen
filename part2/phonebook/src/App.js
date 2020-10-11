@@ -46,7 +46,7 @@ const App = () => {
          successNotification(`append ${data.name} to phone book`)
           setPersons(persons.concat(data));
         })
-        .catch((error) => errorNotification("error creation"));
+        .catch((error) => errorNotification(JSON.stringify(error )));
     }
   };
 

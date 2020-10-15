@@ -15,8 +15,7 @@ const create = (person) =>{
 
   return axios
     .post(base_url, person)
-    .then((response) => {console.log(response)
-      return response.data})
+    .then((response) => response.data)
     .catch(error => console.log(error))
   }
 

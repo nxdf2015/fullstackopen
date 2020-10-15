@@ -1,6 +1,7 @@
 import React from "react";
 
 const Persons = ({ persons, filter, remove }) => {
+  console.log(persons)
   const dataSelected =
     filter !== ""
       ? persons.filter((person) => RegExp(filter, "i").exec(person.name))

@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 
 //hooks
-import {useNotification} from "./hooks"
+import { useNotification } from "./hooks";
 //components
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import Notification from "./components/Notification";
 
-
 import { getAll, create, remove, update } from "./services/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [filter, setFilter] = useState("");
-  const {notification, errorNotification,successNotification} = useNotification();
+  const {
+    notification,
+    errorNotification,
+    successNotification,
+  } = useNotification();
 
   useEffect(() => {
     getAll().then((data) => setPersons(data));
@@ -32,21 +35,22 @@ const App = () => {
         )
       ) {
         const id = persons.find((p) => p.name === person.name).id;
-        update(id, person).then((data) => {
-          successNotification(`update number of ${person.name}`)
-          setPersons(persons.map((p) => (p.id === data.id ? data : p)));
-        })
-        .catch(error => errorNotification(`can't update ${person.name}`))
+        update(id, person)
+          .then((data) => {
+            setPersons(persons.map((p) => (p.id === data.id ? data : p)));
+            successNotification(`update number of ${person.name}`);
+          })
+          .catch((error) => errorNotification(`can't update ${person.name}`));
       }
     } else {
       person = { ...person, id: persons.length + 1 };
 
       create(person)
         .then((data) => {
-         successNotification(`append ${data.name} to phone book`)
           setPersons(persons.concat(data));
+          successNotification(`append ${data.name} to phone book`);
         })
-        .catch((error) => errorNotification(JSON.stringify(error )));
+        .catch((error) => errorNotification(error));
     }
   };
 
@@ -59,18 +63,19 @@ const App = () => {
     const person = persons.find((p) => p.id === id);
 
     if (window.confirm(`delete ${person.name} ?`)) {
-      remove(id).then(() =>{
-        successNotification(`remove ${person.name} from phonebook`)
-        setPersons(persons.filter((person) => person.id !== id))}
-        
-      )
-      .catch(() => {
-        errorNotification(`information of ${person.name} has already been removed from server `)
-        setPersons(persons.filter(p=> p.id !== id))
-      })
+      remove(id)
+        .then(() => {
+          setPersons(persons.filter((person) => person.id !== id));
+          successNotification(`remove ${person.name} from phonebook`);
+        })
+        .catch(() => {
+          errorNotification(
+            `information of ${person.name} has already been removed from server `
+          );
+          setPersons(persons.filter((p) => p.id !== id));
+        });
     }
   };
-
 
   return (
     <div>
